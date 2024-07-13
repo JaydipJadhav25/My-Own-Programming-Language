@@ -73,11 +73,14 @@ function parser(tokens){
                 value : null
             };
             //check for assi
-            if(tokens[0].type === "operator" && tokens[0].value === "="){
+            if(tokens[0].type === "opreator" && tokens[0].value === "="){
                 tokens.shift() //consume '='
+
                 //parse the expression
                 let expression = ''; //10 + 20 expresion
+
                 while(tokens.length > 0 && tokens[0].type !== "keyword"){
+
                     expression += tokens.shift().value;
                 }
                     declaration.value = expression.trim();
@@ -107,7 +110,7 @@ function codeGen(node){
  
      switch(node.type){
         case 'program' : return node.body.map(codeGen).join('\n');
-        case 'Declaration' : return `cost ${node.name} = ${node.value}`;
+        case 'Declaration' : return `const ${node.name} = ${node.value}`;
         case 'print' : return `console.log(${node.expression})`;
      }
 
